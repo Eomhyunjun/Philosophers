@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:46:01 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/22 20:26:32 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/22 21:44:12 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// int philo_eat{
-
-// }
-// int philo_sleep{
-
-// }
-// int philo_think{
-
-// }
-
-// int philo_die{
-
-// }
 
 int parsing_arg(int argc, char **argv)
 {
@@ -46,33 +32,41 @@ int parsing_arg(int argc, char **argv)
     printf("time_eat : %d\n", all()->time_eat);
     printf("time_sleep : %d\n", all()->time_sleep);
     printf("must_time : %d\n", all()->must_time);
-    return (1);
-}
-
-void *counter(void *philo){
-    t_philo *now_philo;
-    now_philo = (t_philo *)philo;
-    printf("%d번째 철학자가 태어났습니다 응애\n", now_philo->num);
     return (0);
 }
 
-int generatePhilo() {
-    int i;
-    int j;
+
+int create_thread(int odd)
+{
     void *now_philo;
+    int i;
+    int ret;
 
-    all()->philo = (t_philo *)malloc(sizeof(t_philo) * (all()->philo_num));
-    if (!all()->philo)
-        return (ERR);
-
-    i = 0;
+    ret = 0;
+    i = odd;
     while (i < all()->philo_num)
     {
         all()->philo[i].num = i + 1;
         now_philo = &(all()->philo[i]);
-        pthread_create(&all()->philo[i].thread_id, NULL, &counter, now_philo);
-        i++;
+        ret = pthread_create(&all()->philo[i].thread_id, NULL, &philo_routine, now_philo);
+        i += 2;
     }
+    return ret;
+}
+
+int generatePhilo() {
+    int ret;
+    int j;
+
+    all()->philo = (t_philo *)malloc(sizeof(t_philo) * (all()->philo_num));
+    if (!all()->philo)
+        return (ERR);
+    ret = create_thread(ODD);
+    if (ret)
+        return ret;
+    ret = create_thread(EVEN);
+    if (ret)
+        return ret;
     j = 0;
     while (j < all()->philo_num)
     {
@@ -82,11 +76,30 @@ int generatePhilo() {
     return (1);
 }
 
+int init_mutex(void)
+{
+	int res;
+
+	res = pthread_mutex_init(&all()->print, NULL);
+	return (res);
+}
+
+int init_all(int argc, char **argv)
+{
+	int res;
+
+	res = parsing_arg(argc, argv);
+	if (!res)
+		res = init_mutex();
+	return res;
+}
+
 int main(int argc, char **argv)
 {
     int res;
-    res = parsing_arg(argc, argv);
-    if (res)
+
+    res = init_all(argc, argv);
+    if (!res)
     {
         // 필로소퍼들 생성 -> 실패시 exit
         generatePhilo();
