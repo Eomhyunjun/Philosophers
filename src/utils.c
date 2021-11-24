@@ -5,54 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 15:27:29 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/16 15:33:31 by eomhyeonjun      ###   ########.fr       */
+/*   Created: 2021/11/24 04:14:52 by eomhyeonjun       #+#    #+#             */
+/*   Updated: 2021/11/24 06:17:05 by eomhyeonjun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int
-	is_num(char num)
-{
-	if (num < '0' || num > '9')
-		return (0);
-	return (1);
-}
+#include "philo.h"
 
-static int
-	ft_isspace(char c)
+uint64_t
+	get_time(void)
 {
-	if (c == '\f' || c == '\n' || c == '\r'
-		|| c == '\t' || c == '\v' || c == ' ')
-		return (1);
-	return (0);
+	struct timeval tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);	
 }
 
 int
-	ft_atoi(const char *str)
+	usleep_loop(int ms)
 {
-	long long	result;
-	long long	sign;
-	long long	post_result;
+	u_int64_t	start;
+	u_int64_t	end;
+	int			ret;
 
-	(void)post_result;
-	result = 0;
-	sign = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-' || *str == '+')
+	start = get_time();
+	end = start + ms;
+	ret = 0;
+	while (!ret && get_time() < end)
 	{
-		if (*str == '-')
-			sign = -1;
-		++str;
+		if (all()->philo_state == PHILO_DIED)
+			ret = 1;
+        else
+		    usleep(50);
 	}
-	while (*str)
-	{
-		if (is_num(*str))
-		{
-			result = result * 10 + ((*str++) - '0');
-		}
-		else
-			break ;
-	}
-	return (sign * result);
+	return (ret);
 }

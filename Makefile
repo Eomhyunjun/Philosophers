@@ -7,8 +7,11 @@ SRCS = \
 			all \
 			main \
 			utils \
+			init_all \
+			ft_atoi \
 			philo_routine \
 			act_philo \
+			print_fuc \
 
 OBJS = $(FIL:.c=.o)
 INCS = -I./inc
