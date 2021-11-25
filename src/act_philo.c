@@ -6,29 +6,35 @@
 /*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 21:03:13 by heom              #+#    #+#             */
-/*   Updated: 2021/11/24 08:34:15 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 04:14:04 by eomhyeonjun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void grab_forks(t_philo	*philo){
+int grab_forks(t_philo	*philo){
+	int res;
+
 	pthread_mutex_lock(&all()->forks[philo->left_fork]);
-	print_fuc(philo, PRINT_GRAP_FORK);
+	res = print_fuc(philo, PRINT_GRAP_FORK);
 	pthread_mutex_lock(&all()->forks[philo->right_fork]);
-	print_fuc(philo, PRINT_GRAP_FORK);
+	res = print_fuc(philo, PRINT_GRAP_FORK);
+	return (res);
 }
 
 int philo_eat(t_philo	*philo){
-	grab_forks(philo);
-	print_fuc(philo, PRINT_EAT);
-	if (usleep_loop(all()->time_eat))
-		return (ERR);
+	int res;
+	
+	res = grab_forks(philo);
 	philo->must_eat--;
 	philo->eat_start = get_time();
+	if (!res)
+		res = print_fuc(philo, PRINT_EAT);
+	if (!res)
+		usleep_loop(all()->time_eat);
 	pthread_mutex_unlock(&all()->forks[philo->left_fork]);
 	pthread_mutex_unlock(&all()->forks[philo->right_fork]);
-	return (0);
+	return (res);
 }
 
 int philo_sleep(t_philo *philo){

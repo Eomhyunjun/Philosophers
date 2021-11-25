@@ -6,11 +6,40 @@
 /*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:46:01 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/24 08:36:49 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 02:47:08 by eomhyeonjun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
+
+void destroy_mutex(pthread_mutex_t mutex)
+{
+	int res;
+
+	res = pthread_mutex_destroy(&mutex);
+	if (res == EBUSY)
+	{
+		pthread_mutex_unlock(&mutex);
+		res = pthread_mutex_destroy(&mutex);
+	}
+}
+
+
+void safe_exit(void)
+{
+    int i;
+
+    i = 0;
+    while (i < all()->philo_num)
+    {
+        destroy_mutex(all()->forks[i]);
+        i++;
+    }
+    destroy_mutex(all()->print);
+    destroy_mutex(all()->state);
+    free(all()->forks);
+}
 
 int init_philo(void)
 {
@@ -20,7 +49,7 @@ int init_philo(void)
     while (i < all()->philo_num)
     {
         all()->philo[i].num = i;
-        all()->philo[i].eat_end = all()->start_time;
+        all()->philo[i].eat_start = all()->start_time;
         if (i == 0)
             all()->philo[i].right_fork = all()->philo_num - 1;
         else
@@ -42,10 +71,6 @@ int main(int argc, char **argv)
         res = init_philo();
     if (!res)
         lifecycle_thread_philo();
-    else
-    {
-        // 에러 메세지 보내기
-    }
-    // 할당해제
+	safe_exit();
     return (0);
 }

@@ -11,6 +11,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <errno.h>
 # include "types.h"
 
 # define ANSI_COLOR_RED     "\x1b[31m"
@@ -29,6 +30,9 @@
 
 # define PHILO_DIED 0
 # define PHILO_ALIVE 1
+
+# define CAN_PRINT 0
+# define CANT_PRINT 1
 
 t_all
 *all(void);
@@ -60,7 +64,7 @@ philo_think(t_philo *philo);
 int
 philo_die(t_philo *philo);
 
-void
+int
 print_fuc(t_philo *philo, int type);
 
 /*

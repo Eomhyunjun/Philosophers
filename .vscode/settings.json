@@ -3,6 +3,8 @@
         "philo.h": "c",
         "types.h": "c",
         "unistd.h": "c",
-        "bitset": "c"
+        "bitset": "c",
+        "pthread.h": "c",
+        "locale": "c"
     }
 }

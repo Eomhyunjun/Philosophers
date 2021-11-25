@@ -6,7 +6,7 @@
 /*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 13:50:01 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/24 08:36:47 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 03:45:55 by eomhyeonjun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ typedef struct s_philo
 	int             left_fork;
 	int             right_fork;
 	int				must_eat;
-	int             eat_start;
-	uint64_t        eat_end;
+	uint64_t        eat_start;
 }               t_philo;
 
 typedef struct s_all
@@ -32,7 +31,9 @@ typedef struct s_all
 	int					time_eat;
 	int					time_sleep;
 	int					must_eat;
+	int					fulfilled_philo_count;
 	int					philo_state;
+	int					print_state;
     uint64_t            start_time;
     pthread_mutex_t		print;
 	pthread_mutex_t		state;

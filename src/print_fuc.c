@@ -6,7 +6,7 @@
 /*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 20:04:05 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/24 06:27:38 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 03:35:22 by eomhyeonjun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,33 @@ void    print_msg(t_philo *philo, int type)
 
     time = get_time() - all()->start_time;
     if (type == PRINT_EAT)
-	    printf("%llums %d is eating\n", time, philo->num);
+	    printf("%llu %d is eating\n", time, philo->num + 1);
     else if (type == PRINT_GRAP_FORK)
-	    printf("%llums %d has taken a fork\n", time, philo->num);
+	    printf("%llu %d has taken a fork\n", time, philo->num + 1);
     else if (type == PRINT_SLEEP)
-	    printf("%llums %d is sleeping\n", time, philo->num);
+	    printf("%llu %d is sleeping\n", time, philo->num + 1);
     else if (type == PRINT_THINK)
-	    printf("%llums %d is thinking\n", time, philo->num);
+	    printf("%llu %d is thinking\n", time, philo->num + 1);
     else if (type == PRINT_DIE)
-        printf("%llums %d died\n", time, philo->num);
+        printf("%llu %d died\n", time, philo->num + 1);
 	printf(ANSI_COLOR_RESET);
 }
 
-void    print_fuc(t_philo *philo, int type)
+int    print_fuc(t_philo *philo, int type)
 {
+    int res;
+
+    res = 0;
     pthread_mutex_lock(&all()->print);
-    print_color(type);
-    print_msg(philo, type);
+    if (all()->print_state == CANT_PRINT)
+        res = 1;
+    if (!res)
+    {
+        print_color(type);
+        print_msg(philo, type);
+    }
+    if (all()->philo_state == PHILO_DIED)
+        all()->print_state = CANT_PRINT;
     pthread_mutex_unlock(&all()->print);
+    return (res);
 }
