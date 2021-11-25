@@ -6,7 +6,7 @@
 /*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 04:14:52 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/24 06:17:05 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 04:54:55 by eomhyeonjun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int
 		if (all()->philo_state == PHILO_DIED)
 			ret = 1;
         else
-		    usleep(50);
+		    usleep(100);
 	}
 	return (ret);
 }

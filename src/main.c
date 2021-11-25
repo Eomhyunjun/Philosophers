@@ -6,7 +6,7 @@
 /*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:46:01 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/26 02:47:08 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 04:51:08 by eomhyeonjun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ int main(int argc, char **argv)
     int res;
 
     res = init_all(argc, argv);
-
     if (!res)
         res = init_philo();
     if (!res)
-        lifecycle_thread_philo();
+        res = lifecycle_thread_philo();
 	safe_exit();
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 21:02:25 by heom              #+#    #+#             */
-/*   Updated: 2021/11/26 04:22:33 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 05:04:10 by eomhyeonjun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		all_philo_fulfilled(t_philo *philo)
 		pthread_mutex_lock(&all()->state);
 		all()->philo_state = PHILO_DIED;
 		printf("pp------%d번 선수 퇴장 ----\n", philo->num + 1);
-		pthread_mutex_lock(&all()->state);
+		pthread_mutex_unlock(&all()->state);
 		return (1);
 	}
 	return (0);
