@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 04:14:52 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/26 04:54:55 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 15:39:38 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 uint64_t
 	get_time(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);	
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
 int
@@ -35,8 +35,8 @@ int
 	{
 		if (all()->philo_state == PHILO_DIED)
 			ret = 1;
-        else
-		    usleep(100);
+		else
+			usleep(100);
 	}
 	return (ret);
 }

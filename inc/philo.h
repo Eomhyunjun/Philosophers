@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 15:57:02 by heom              #+#    #+#             */
+/*   Updated: 2021/11/26 15:57:03 by heom             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -7,7 +19,7 @@
 # define EVEN 1
 
 # include <unistd.h>
-#include <sys/time.h>
+# include <sys/time.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <pthread.h>
@@ -52,17 +64,23 @@ create_thread(int odd);
 void
 *philo_routine(void *philo);
 
+void
+*watch_philo_died(void *philo);
+
+int
+philo_die(t_philo *philo);
+
 int
 philo_eat(t_philo *philo);
+
+int
+all_philo_fulfilled(t_philo *philo);
 
 int
 philo_sleep(t_philo *philo);
 
 int
 philo_think(t_philo *philo);
-
-int
-philo_die(t_philo *philo);
 
 int
 print_fuc(t_philo *philo, int type);

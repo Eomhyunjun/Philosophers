@@ -10,6 +10,7 @@ SRCS = \
 			init_all \
 			ft_atoi \
 			philo_routine \
+			watch_philo_died \
 			act_philo \
 			print_fuc \
 

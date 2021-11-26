@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   all.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eomhyeonjun <eomhyeonjun@student.42.fr>    +#+  +:+       +#+        */
+/*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:15:47 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/16 15:16:05 by eomhyeonjun      ###   ########.fr       */
+/*   Updated: 2021/11/26 15:49:39 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_all	*all(void)
+t_all
+	*all(void)
 {
 	static t_all	babyta;
 
