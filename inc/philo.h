@@ -6,15 +6,24 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 15:57:02 by heom              #+#    #+#             */
-/*   Updated: 2021/11/26 15:57:03 by heom             ###   ########.fr       */
+/*   Updated: 2021/11/26 16:41:44 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# define ERR 1
 # define SUCCES 0
+
+# define ARG_NUM_ERR 1
+# define ARG_IS_NOT_INT 2
+# define TOO_MANY_PHILO 3
+# define MORE_THAN_60 4
+
+# define MALLOCK_ERR 5
+# define MUTEX_INIT_ERR 6
+# define CREATE_THREAD_ERR 7
+
 # define ODD 0
 # define EVEN 1
 
@@ -52,7 +61,10 @@ t_all
 int
 init_all(int argc, char **argv);
 
-int
+void
+init_philo(void);
+
+void
 parsing_arg(int argc, char **argv);
 
 int
@@ -97,5 +109,8 @@ usleep_loop(int ms);
 
 int
 ft_atoi(const char *str);
+
+int
+char_is_num(char *num);
 
 #endif

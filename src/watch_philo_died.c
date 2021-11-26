@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 15:51:37 by heom              #+#    #+#             */
-/*   Updated: 2021/11/26 15:57:54 by heom             ###   ########.fr       */
+/*   Updated: 2021/11/26 16:42:26 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void
 		usleep(50);
 	if (all()->philo_state != PHILO_DIED)
 	{
-		printf("타임아웃죽음---------------\n");
 		pthread_mutex_lock(&all()->state);
 		philo_die(now_philo);
 		pthread_mutex_lock(&all()->state);

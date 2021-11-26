@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 21:02:25 by heom              #+#    #+#             */
-/*   Updated: 2021/11/26 15:52:01 by heom             ###   ########.fr       */
+/*   Updated: 2021/11/26 16:46:38 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void
 
 	now_philo = (t_philo *)philo;
 	if (pthread_create(&now_philo->monitor, NULL, &watch_philo_died, philo))
-	{
-		printf("------모니터 선수 에러 ----\n");
-		return ((void *)ERR);
-	}
+		return ((void *) CREATE_THREAD_ERR);
 	pthread_detach(now_philo->monitor);
 	while (1)
 	{
@@ -49,10 +46,8 @@ int
 
 	res = 0;
 	i = odd;
-	if (odd == EVEN && all()->philo_num < 100)
-		usleep(100);
-	else if (odd == EVEN)
-		usleep(200);
+	if (odd == EVEN && all()->philo_num)
+		usleep(all()->time_eat - 50);
 	while (!res && i < all()->philo_num)
 	{
 		all()->philo[i].num = i;

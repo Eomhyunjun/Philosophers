@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 04:14:52 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/26 15:39:38 by heom             ###   ########.fr       */
+/*   Updated: 2021/11/26 17:03:35 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,19 @@ int
 			usleep(100);
 	}
 	return (ret);
+}
+
+int
+	char_is_num(char *num)
+{
+	int	i;
+
+	i = 0;
+	while (num[i])
+	{
+		if (num[i] < '0' || num[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
 }

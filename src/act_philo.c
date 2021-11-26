@@ -6,7 +6,7 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 21:03:13 by heom              #+#    #+#             */
-/*   Updated: 2021/11/26 15:52:22 by heom             ###   ########.fr       */
+/*   Updated: 2021/11/26 16:38:55 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int
 	{
 		pthread_mutex_lock(&all()->state);
 		all()->philo_state = PHILO_DIED;
-		printf("pp------%d번 선수 퇴장 ----\n", philo->num + 1);
 		pthread_mutex_unlock(&all()->state);
 		return (1);
 	}

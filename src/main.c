@@ -6,12 +6,28 @@
 /*   By: heom <heom@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:46:01 by eomhyeonjun       #+#    #+#             */
-/*   Updated: 2021/11/26 15:47:15 by heom             ###   ########.fr       */
+/*   Updated: 2021/11/26 17:02:56 by heom             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
+
+void
+	print_err(int res)
+{
+	if (res == 1)
+		printf("ARG_NUM_ERR");
+	if (res == 2)
+		printf("ARG_IS_NOT_INT");
+	if (res == 3)
+		printf("TOO_MANY_PHILO");
+	if (res == 4)
+		printf("PHILO_ARC_TIME_MORE_THAN_60");
+	if (res == 5)
+		printf("MALLOCK_ERR");
+	if (res == 6)
+		printf("MUTEX_INIT_ERR");
+}
 
 void
 	destroy_mutex(pthread_mutex_t mutex)
@@ -40,9 +56,10 @@ void
 	destroy_mutex(all()->print);
 	destroy_mutex(all()->state);
 	free(all()->forks);
+	free(all()->philo);
 }
 
-int
+void
 	init_philo(void)
 {
 	int	i;
@@ -60,7 +77,6 @@ int
 		all()->philo[i].must_eat = all()->must_eat;
 		i++;
 	}
-	return (SUCCES);
 }
 
 int
@@ -69,10 +85,13 @@ int
 	int	res;
 
 	res = init_all(argc, argv);
-	if (!res)
-		res = init_philo();
-	if (!res)
+	if (res)
+		print_err(res);
+	if (res == SUCCES)
+	{
+		init_philo();
 		res = lifecycle_thread_philo();
+	}
 	safe_exit();
 	return (0);
 }
